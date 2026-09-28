@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>給狐大的信｜江湖寄語</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="music-player">
+        <div class="music-info">
+            <span class="music-icon">♫</span>
+            <div>
+                <h3>江湖雅樂</h3>
+                <p id="music-name">執筆無悔</p>
+            </div>
+        </div>
+
+        <div class="music-controls">
+            <button id="play-btn">▶</button>
+        </div>
+
+        <div class="volume-control">
+            <span>音量</span>
+            <input id="volume" type="range"
+                   min="0" max="1" step="0.01" value="0.2">
+        </div>
+
+        <audio id="bgm" loop>
+            <source src="music/music1.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <header>
+        <h1>給狐大的信</h1>
+        <p>千言萬語，皆是心意。</p>
+        <a href="index.html" class="back-btn">返回首頁</a>
+    </header>
+
+    <div class="random-container">
+        <button id="random-btn">✦ 隨機抽取一張留言 ✦</button>
+    </div>
+
+    <main class="card-wall">
+<div class="card-item">
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front"></div>
+            <div class="card-back">
+                <div class="message-content">
+                    <p class="sender">
+                        <strong>投稿人：</strong>匿名
+                    </p>
+                    <p class="message">
+                        <strong>內容：</strong>
+                        <span class="message-text">謝謝你們一直努力製作這款遊戲，希望你們能繼續加油！</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-caption">
+        <h2>江湖寄語</h2>
+        <p>點擊翻開</p>
+    </div>
+</div>
+
+
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

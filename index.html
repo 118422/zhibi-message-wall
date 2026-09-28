@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>江湖寄語</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="music-player">
+    <div class="music-info">
+        <span class="music-icon">♫</span>
+        <div>
+            <h3>江湖雅樂</h3>
+            <p id="music-name">執筆無悔</p>
+        </div>
+    </div>
+
+    <div class="music-controls">
+        <button id="play-btn">▶</button>
+    </div>
+
+    <div class="volume-control">
+        <span>音量</span>
+        <input id="volume" type="range"
+               min="0" max="1" step="0.01" value="0.2">
+    </div>
+
+    <audio id="bgm" loop>
+        <source src="music/music1.mp3" type="audio/mpeg">
+    </audio>
+</div>
+
+    <main class="welcome">
+        <h1>江湖寄語</h1>
+        <p>不問名號，只留一言。</p>
+
+        <div class="menu">
+            <a href="fox.html" class="menu-btn">給狐大</a>
+            <a href="cow.html" class="menu-btn">給牛大</a>
+            <a href="game.html" class="menu-btn">給執筆</a>
+        </div>
+    </main>
+<script src="script.js"></script>
+</body>
+</html>

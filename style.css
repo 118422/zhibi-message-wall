@@ -1,0 +1,482 @@
+
+/* 全站基本設定 */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Microsoft JhengHei", sans-serif;
+    background-image: url("images/background.png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    color: #fff;
+}
+
+/* 首頁背景與排版 */
+.welcome {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 30px 20px;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+/* 網站標題 */
+.welcome h1 {
+    color: #f5dfb0;
+    font-size: 48px;
+    letter-spacing: 10px;
+    text-shadow: 2px 2px 8px #000;
+    margin: 0 0 15px;
+}
+
+/* 標題下方文字 */
+.welcome p {
+    color: #fff;
+    font-size: 20px;
+    letter-spacing: 3px;
+    text-shadow: 2px 2px 6px #000;
+    margin: 0 0 35px;
+}
+
+/* 三個入口按鈕 */
+.menu {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.menu-btn {
+    display: inline-block;
+    min-width: 150px;
+    padding: 14px 25px;
+    color: #f5dfb0;
+    background: rgba(20, 30, 45, 0.75);
+    border: 1px solid #d8b66a;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 18px;
+    letter-spacing: 3px;
+    transition: 0.3s;
+}
+
+.menu-btn:hover {
+    background: #d8b66a;
+    color: #172334;
+    transform: translateY(-3px);
+}
+
+/* 手機畫面 */
+@media (max-width: 600px) {
+    .welcome h1 {
+        font-size: 32px;
+        letter-spacing: 5px;
+    }
+
+    .welcome p {
+        font-size: 16px;
+    }
+
+    .menu {
+        flex-direction: column;
+        width: 80%;
+    }
+
+    .menu-btn {
+        width: 100%;
+    }
+}
+
+/* 留言頁面標題 */
+header {
+    text-align: center;
+    padding: 40px 20px 20px;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+header h1 {
+    color: #f5dfb0;
+    font-size: 36px;
+    letter-spacing: 6px;
+    text-shadow: 2px 2px 8px #000;
+    margin: 0 0 12px;
+}
+
+header p {
+    color: #fff;
+    font-size: 17px;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 6px #000;
+}
+
+/* 返回首頁按鈕 */
+.back-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 22px;
+    color: #f5dfb0;
+    text-decoration: none;
+    border: 1px solid #d8b66a;
+    background: rgba(20, 30, 45, 0.75);
+    border-radius: 5px;
+}
+
+.back-btn:hover {
+    background: #d8b66a;
+    color: #172334;
+}
+
+/* 卡片牆排列 */
+.card-wall {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+/* 平板 */
+@media (max-width: 900px) {
+    .card-wall {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+/* 手機 */
+@media (max-width: 600px) {
+    .card-wall {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 15px;
+        padding: 12px;
+    }
+
+    header h1 {
+        font-size: 28px;
+    }
+}
+
+/* 卡片牆 */
+.card-wall {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+/* 卡片本身 */
+.card {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+/* 卡片翻轉容器 */
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.7s ease;
+}
+
+/* 卡片正反面 */
+.card-front,
+.card-back {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 18%;
+}
+
+/* 未翻開：顯示卡背圖片 */
+.card-front {
+    background-image: url("images/card_back.png");
+    color: #f5dfb0;
+}
+
+/* 翻開後：顯示卡片正面圖片 */
+.card-back {
+    background-image: url("images/card_front.png");
+    transform: rotateY(180deg);
+    color: #f5dfb0;
+}
+
+/* 卡片文字 */
+.card-front h2 {
+    font-size: 18px;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px 4px #000;
+}
+
+.card-front p {
+    font-size: 13px;
+    text-shadow: 1px 1px 4px #000;
+}
+
+.card-back p {
+    font-size: 16px;
+    line-height: 1.8;
+    text-shadow: 1px 1px 4px #000;
+}
+
+/* 平板 */
+@media (max-width: 900px) {
+    .card-wall {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+/* 手機 */
+@media (max-width: 600px) {
+    .card-wall {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 15px;
+        padding: 12px;
+    }
+}
+/* 卡片與下方文字 */
+.card-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+/* 卡片下方標題 */
+.card-caption {
+    text-align: center;
+    color: #fff;
+    text-shadow: 1px 1px 5px #000;
+}
+
+.card-caption h2 {
+    font-size: 18px;
+    letter-spacing: 2px;
+    margin: 0 0 5px;
+}
+
+.card-caption p {
+    font-size: 14px;
+    margin: 0;
+    color: #f5dfb0;
+}
+/* 卡片牆背景框 */
+.card-wall {
+    background: #101d2b;
+    max-width: 1300px;
+    margin: 40px auto;
+    padding: 35px;
+    border: 1px solid rgba(216, 182, 106, 0.5);
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* 手機版 */
+@media (max-width: 600px) {
+    .card-wall {
+        margin: 25px 12px;
+        padding: 15px;
+    }
+}
+/* 卡片翻面效果 */
+.card-inner {
+    transform-style: preserve-3d;
+    transition: transform 0.7s ease;
+}
+
+/* 點擊後翻轉 */
+.card.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+/* 正反面設定 */
+.card-front,
+.card-back {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* 卡片背面翻轉 180 度 */
+.card-back {
+    transform: rotateY(180deg);
+}
+/* 古風音樂播放器 */
+.music-player {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    width: 230px;
+    padding: 15px;
+    background: rgba(16, 29, 43, 0.95);
+    border: 1px solid #d8b66a;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    color: #f5dfb0;
+}
+
+.music-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.music-icon {
+    font-size: 30px;
+    color: #d8b66a;
+}
+
+.music-info h3 {
+    margin: 0;
+    font-size: 16px;
+    letter-spacing: 2px;
+}
+
+.music-info p {
+    margin: 5px 0 0;
+    font-size: 12px;
+    color: #c9b98e;
+}
+
+.music-controls {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 12px;
+}
+
+#play-btn {
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 50%;
+    background: #d8b66a;
+    color: #172334;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+#play-btn:hover {
+    background: #f5dfb0;
+    transform: scale(1.05);
+}
+
+.volume-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+}
+
+#volume {
+    flex: 1;
+    accent-color: #d8b66a;
+    cursor: pointer;
+}
+/* 隨機抽取按鈕 */
+.random-container {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    z-index: 3000;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+}
+
+#random-btn {
+    padding: 12px 22px;
+    background: #101d2b;
+    color: #f5dfb0;
+    border: 1px solid #d8b66a;
+    border-radius: 8px;
+    font-size: 16px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+#random-btn:hover {
+    background: #d8b66a;
+    color: #172334;
+    transform: translateY(-3px);
+}
+
+/* 抽中的卡片覆蓋整個畫面 */
+.card-item.selected {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.9);
+}
+
+/* 放大的卡片 */
+.card-item.selected .card {
+    width: min(80vw, 600px);
+    height: min(85vh, 800px);
+    aspect-ratio: auto;
+    transform: scale(1);
+    transition: transform 0.4s ease;
+}
+
+/* 全螢幕時隱藏卡片下方的標題 */
+.card-item.selected .card-caption {
+    display: none;
+}
+.card-back {
+    overflow: hidden;
+}
+
+.message-content {
+    background: #101d2b;
+    width: 130%;
+    max-height: 300%;
+    padding: 15px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    font-size: 22px;
+    line-height: 1.8;
+    text-align: center;
+}
+
+.message-content p {
+    margin: 0 0 20px;
+}
+
+.message-text {
+    white-space: pre-wrap;
+}
