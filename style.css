@@ -370,6 +370,24 @@ header p {
     margin-bottom: 12px;
 }
 
+.progress-control {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin: 0 0 12px;
+    font-size: 11px;
+    color: #c9b98e;
+    font-variant-numeric: tabular-nums;
+}
+
+#music-progress {
+    flex: 1;
+    min-width: 0;
+    height: 5px;
+    accent-color: #d8b66a;
+    cursor: pointer;
+}
+
 #play-btn {
     width: 42px;
     height: 42px;
@@ -480,3 +498,77 @@ header p {
 .message-text {
     white-space: pre-wrap;
 }
+
+/* 搜尋與收藏工具列 */
+.card-tools {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    max-width: 700px;
+    margin: 20px auto 0;
+    padding: 0 20px;
+}
+
+#card-search {
+    flex: 1;
+    min-width: 0;
+    max-width: 480px;
+    padding: 11px 14px;
+    color: #f5dfb0;
+    background: rgba(16, 29, 43, 0.92);
+    border: 1px solid #d8b66a;
+    border-radius: 8px;
+    font: inherit;
+    font-size: 15px;
+    outline: none;
+}
+
+#card-search::placeholder { color: #c7c0b0; }
+#card-search:focus { box-shadow: 0 0 0 2px rgba(216, 182, 106, 0.35); }
+
+#favorites-filter, .favorite-btn {
+    padding: 10px 14px;
+    color: #f5dfb0;
+    background: rgba(16, 29, 43, 0.92);
+    border: 1px solid #d8b66a;
+    border-radius: 8px;
+    cursor: pointer;
+    font: inherit;
+    transition: 0.2s;
+}
+
+#favorites-filter[aria-pressed="true"], .favorite-btn.is-favorite {
+    color: #fff;
+    background: #8d3048;
+    border-color: #e7a1b2;
+}
+
+.card-item { position: relative; }
+.favorite-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 5;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    font-size: 21px;
+    line-height: 1;
+    background: rgba(16, 29, 43, 0.9);
+}
+
+.favorite-btn:hover, #favorites-filter:hover {
+    background: #d8b66a;
+    color: #172334;
+}
+
+.card-item[hidden] { display: none !important; }
+
+@media (max-width: 600px) {
+    .card-tools { gap: 6px; padding: 0 12px; }
+    #card-search { font-size: 13px; padding: 10px; }
+    #favorites-filter { font-size: 12px; padding: 10px 9px; white-space: nowrap; }
+    .favorite-btn { width: 34px; height: 34px; font-size: 19px; }
+}
+

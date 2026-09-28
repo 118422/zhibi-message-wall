@@ -7,67 +7,356 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <div class="music-player">
-        <div class="music-info">
-            <span class="music-icon">♫</span>
-            <div>
-                <h3>江湖雅樂</h3>
-                <p id="music-name">執筆無悔</p>
-            </div>
-        </div>
-
-        <div class="music-controls">
-            <button id="play-btn">▶</button>
-        </div>
-
-        <div class="volume-control">
-            <span>音量</span>
-            <input id="volume" type="range"
-                   min="0" max="1" step="0.01" value="0.2">
-        </div>
-
-        <audio id="bgm" loop>
-            <source src="music/music1.mp3" type="audio/mpeg">
-        </audio>
+        <div class="music-info"><span class="music-icon">♫</span><div><h3>江湖雅樂</h3><p id="music-name">執筆無悔</p></div></div>
+        <div class="music-controls"><button id="play-btn">▶</button></div>
+        <div class="progress-control"><span id="current-time">0:00</span><input id="music-progress" type="range" min="0" max="0" step="0.1" value="0" aria-label="音樂播放進度"><span id="duration">0:00</span></div>
+        <div class="volume-control"><span>音量</span><input id="volume" type="range" min="0" max="1" step="0.01" value="0.2"></div>
+        <audio id="bgm" loop><source src="music/music1.mp3" type="audio/mpeg"></audio>
     </div>
-
-    <header>
-        <h1>給牛大的信</h1>
-        <p>千言萬語，皆是心意。</p>
-        <a href="index.html" class="back-btn">返回首頁</a>
-    </header>
-
-    <div class="random-container">
-        <button id="random-btn">✦ 隨機抽取一張留言 ✦</button>
-    </div>
-
+    <header><h1>給牛大的信</h1><p>千言萬語，皆是心意。</p><a href="index.html" class="back-btn">返回首頁</a></header>
+    <div class="card-tools"><input id="card-search" type="search" placeholder="搜尋暱稱或留言內容……" aria-label="搜尋留言"><button id="favorites-filter" type="button" aria-pressed="false">♡ 只看收藏</button></div>
+    <div class="random-container"><button id="random-btn">✦ 隨機抽取一張留言 ✦</button></div>
     <main class="card-wall">
-        <div class="card-item">
+<div class="card-item">
     <div class="card">
         <div class="card-inner">
             <div class="card-front"></div>
             <div class="card-back">
                 <div class="message-content">
-                    <p class="sender">
-                        <strong>投稿人：</strong>匿名
-                    </p>
-                    <p class="message">
-                        <strong>內容：</strong>
-                        <span class="message-text">謝謝你們一直努力製作這款遊戲，希望你們能繼續加油！</span>
-                    </p>
+                    <p class="sender"><strong>投稿人：</strong>兔兔</p>
+                    <p class="post-date"><strong>投稿日期：</strong>2026-09-26</p>
+                    <p class="message"><strong>內容：</strong><span class="message-text">謝謝牛大一開始將我提上吉祥物的位置，我很珍惜在dc和執筆遇到的人事物，想製作這個小驚喜的想法也是因為你一直有在dc活躍氣氛，製造一個又一個有趣的話題，謝謝你，謝謝狐大，也謝謝執筆，讓我認識了一大群這麼好的朋友。</span></p>
                 </div>
             </div>
         </div>
     </div>
-    <div class="card-caption">
-        <h2>江湖寄語</h2>
-        <p>點擊翻開</p>
-    </div>
+    <div class="card-caption"><h2>江湖寄語</h2><p>點擊翻開</p></div>
 </div>
 
-    </main>
+<div class="card-item">
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front"></div>
+            <div class="card-back">
+                <div class="message-content">
+                    <p class="sender"><strong>投稿人：</strong>危閣米布丁</p>
+                    <p class="post-date"><strong>投稿日期：</strong>2026-09-26</p>
+                    <p class="message"><strong>內容：</strong><span class="message-text">辛苦你了犧牲小我完成大我</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-caption"><h2>江湖寄語</h2><p>點擊翻開</p></div>
+</div>
 
+<div class="card-item">
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front"></div>
+            <div class="card-back">
+                <div class="message-content">
+                    <p class="sender"><strong>投稿人：</strong>桃桃</p>
+                    <p class="post-date"><strong>投稿日期：</strong>2026-09-26</p>
+                    <p class="message"><strong>內容：</strong><span class="message-text">ㄌㄩㄝ 
+好啦 辛苦你熱絡整個群組 金歡喜</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-caption"><h2>江湖寄語</h2><p>點擊翻開</p></div>
+</div>
+
+<div class="card-item">
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front"></div>
+            <div class="card-back">
+                <div class="message-content">
+                    <p class="sender"><strong>投稿人：</strong>蛇蛇博士</p>
+                    <p class="post-date"><strong>投稿日期：</strong>2026-09-26</p>
+                    <p class="message"><strong>內容：</strong><span class="message-text">我覺得這個遊戲的dc社群能這麼熱絡，牛大的功勞不可少，牛大辛苦了。</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-caption"><h2>江湖寄語</h2><p>點擊翻開</p></div>
+</div>
+
+<div class="card-item">
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front"></div>
+            <div class="card-back">
+                <div class="message-content">
+                    <p class="sender"><strong>投稿人：</strong>暮</p>
+                    <p class="post-date"><strong>投稿日期：</strong>2026-09-26</p>
+                    <p class="message"><strong>內容：</strong><span class="message-text">多吃草~ww</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-caption"><h2>江湖寄語</h2><p>點擊翻開</p></div>
+</div>
+
+<div class="card-item">
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front"></div>
+            <div class="card-back">
+                <div class="message-content">
+                    <p class="sender"><strong>投稿人：</strong>墨竹</p>
+                    <p class="post-date"><strong>投稿日期：</strong>2026-09-26</p>
+                    <p class="message"><strong>內容：</strong><span class="message-text">牛大 多謝你的認可 我也被你拉來當掌櫃 在一些貼文都幫我處理了9成我基本能夠直接發文 每天能夠在DC群陪著胡鬧 在各個平台發文推廣 看著江湖長大 有著托舉這一切 DC有了定心骨 辛苦了 也給自己緩口氣 不蒙嫌棄 我還在這看著這江湖</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-caption"><h2>江湖寄語</h2><p>點擊翻開</p></div>
+</div>
+
+<div class="card-item">
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front"></div>
+            <div class="card-back">
+                <div class="message-content">
+                    <p class="sender"><strong>投稿人：</strong>墨塵蟎</p>
+                    <p class="post-date"><strong>投稿日期：</strong>2026-09-27</p>
+                    <p class="message"><strong>內容：</strong><span class="message-text">感謝您創造了一個很好的玩家群組,讓我們在遊戲外還可以認識到更多的玩家,希望您在掛睡的同時還是不要關麥,讓我們繼續聽您打呼🫡</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-caption"><h2>江湖寄語</h2><p>點擊翻開</p></div>
+</div>
+
+<div class="card-item">
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front"></div>
+            <div class="card-back">
+                <div class="message-content">
+                    <p class="sender"><strong>投稿人：</strong>楓天羽</p>
+                    <p class="post-date"><strong>投稿日期：</strong>2026-09-27</p>
+                    <p class="message"><strong>內容：</strong><span class="message-text">感謝牛大犧性自己為大家帶來歡樂</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-caption"><h2>江湖寄語</h2><p>點擊翻開</p></div>
+</div>
+
+<div class="card-item">
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front"></div>
+            <div class="card-back">
+                <div class="message-content">
+                    <p class="sender"><strong>投稿人：</strong>Cobrasonic 香仔</p>
+                    <p class="post-date"><strong>投稿日期：</strong>2026-09-27</p>
+                    <p class="message"><strong>內容：</strong><span class="message-text">真的有才</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-caption"><h2>江湖寄語</h2><p>點擊翻開</p></div>
+</div>
+
+<div class="card-item">
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front"></div>
+            <div class="card-back">
+                <div class="message-content">
+                    <p class="sender"><strong>投稿人：</strong>小花生</p>
+                    <p class="post-date"><strong>投稿日期：</strong>2026-09-27</p>
+                    <p class="message"><strong>內容：</strong><span class="message-text">哞～～～～ </span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-caption"><h2>江湖寄語</h2><p>點擊翻開</p></div>
+</div>
+
+<div class="card-item">
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front"></div>
+            <div class="card-back">
+                <div class="message-content">
+                    <p class="sender"><strong>投稿人：</strong>聲聲</p>
+                    <p class="post-date"><strong>投稿日期：</strong>2026-09-27</p>
+                    <p class="message"><strong>內容：</strong><span class="message-text">牛肉必須做成料理！</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-caption"><h2>江湖寄語</h2><p>點擊翻開</p></div>
+</div>
+
+<div class="card-item">
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front"></div>
+            <div class="card-back">
+                <div class="message-content">
+                    <p class="sender"><strong>投稿人：</strong>冰雪霜</p>
+                    <p class="post-date"><strong>投稿日期：</strong>2026-09-27</p>
+                    <p class="message"><strong>內容：</strong><span class="message-text">謝謝大家用心的維護社群，辛苦了</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-caption"><h2>江湖寄語</h2><p>點擊翻開</p></div>
+</div>
+
+<div class="card-item">
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front"></div>
+            <div class="card-back">
+                <div class="message-content">
+                    <p class="sender"><strong>投稿人：</strong>麒麟</p>
+                    <p class="post-date"><strong>投稿日期：</strong>2026-09-27</p>
+                    <p class="message"><strong>內容：</strong><span class="message-text">哞</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-caption"><h2>江湖寄語</h2><p>點擊翻開</p></div>
+</div>
+
+<div class="card-item">
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front"></div>
+            <div class="card-back">
+                <div class="message-content">
+                    <p class="sender"><strong>投稿人：</strong>EBK</p>
+                    <p class="post-date"><strong>投稿日期：</strong>2026-09-27</p>
+                    <p class="message"><strong>內容：</strong><span class="message-text">要是沒看到你的Threads文 我可能都不知道有這個好玩遊戲</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-caption"><h2>江湖寄語</h2><p>點擊翻開</p></div>
+</div>
+
+<div class="card-item">
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front"></div>
+            <div class="card-back">
+                <div class="message-content">
+                    <p class="sender"><strong>投稿人：</strong>沐沐</p>
+                    <p class="post-date"><strong>投稿日期：</strong>2026-09-27</p>
+                    <p class="message"><strong>內容：</strong><span class="message-text">牛大！我們要繼續撞人（X 
+我會繼續努力經營執筆號的～希望有一天在執筆世界裡真的出現執筆號，到時候我要「執筆號二船長」的稱號！！！៸៸᳐ ⦁ ⩊ ⦁ ៸៸᳐ฅ</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-caption"><h2>江湖寄語</h2><p>點擊翻開</p></div>
+</div>
+
+<div class="card-item">
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front"></div>
+            <div class="card-back">
+                <div class="message-content">
+                    <p class="sender"><strong>投稿人：</strong>蔡萊姆</p>
+                    <p class="post-date"><strong>投稿日期：</strong>2026-09-27</p>
+                    <p class="message"><strong>內容：</strong><span class="message-text">吾必追殺汝至天涯海角，牛來快跑</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-caption"><h2>江湖寄語</h2><p>點擊翻開</p></div>
+</div>
+
+<div class="card-item">
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front"></div>
+            <div class="card-back">
+                <div class="message-content">
+                    <p class="sender"><strong>投稿人：</strong>械玄</p>
+                    <p class="post-date"><strong>投稿日期：</strong>2026-09-27</p>
+                    <p class="message"><strong>內容：</strong><span class="message-text">加油</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-caption"><h2>江湖寄語</h2><p>點擊翻開</p></div>
+</div>
+
+<div class="card-item">
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front"></div>
+            <div class="card-back">
+                <div class="message-content">
+                    <p class="sender"><strong>投稿人：</strong>艾斯</p>
+                    <p class="post-date"><strong>投稿日期：</strong>2026-09-27</p>
+                    <p class="message"><strong>內容：</strong><span class="message-text">從內測開服第一天玩到現在 不知不覺也過了快兩個月 感謝牛大狐你的宣傳讓我了解到有這麼一款遊戲 你所構想的一些活動跟帶動社群氣氛真的很棒 雖然平時大家常常對你開一些玩笑 但你總能用愉快的口氣帶過 這真的不容易 相信大家內心也是很尊重敬佩你的(應該吧 最後也謝謝你平常的關心
+祝福你往後的日子能跟老大繼續攜手共進把執筆繼續做大做強</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-caption"><h2>江湖寄語</h2><p>點擊翻開</p></div>
+</div>
+
+<div class="card-item">
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front"></div>
+            <div class="card-back">
+                <div class="message-content">
+                    <p class="sender"><strong>投稿人：</strong>樂智貘貘</p>
+                    <p class="post-date"><strong>投稿日期：</strong>2026-09-27</p>
+                    <p class="message"><strong>內容：</strong><span class="message-text">祝未來遊戲也順順利利，身體健康</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-caption"><h2>江湖寄語</h2><p>點擊翻開</p></div>
+</div>
+
+<div class="card-item">
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front"></div>
+            <div class="card-back">
+                <div class="message-content">
+                    <p class="sender"><strong>投稿人：</strong>龍影風</p>
+                    <p class="post-date"><strong>投稿日期：</strong>2026-09-28</p>
+                    <p class="message"><strong>內容：</strong><span class="message-text">多謝你們的付出</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-caption"><h2>江湖寄語</h2><p>點擊翻開</p></div>
+</div>
+
+<div class="card-item">
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front"></div>
+            <div class="card-back">
+                <div class="message-content">
+                    <p class="sender"><strong>投稿人：</strong>櫻海</p>
+                    <p class="post-date"><strong>投稿日期：</strong>2026-09-28</p>
+                    <p class="message"><strong>內容：</strong><span class="message-text">牛大，謝謝你一直維持DC的氣氛陪我們一起聊天，你是我們的快樂果、開心果！</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-caption"><h2>江湖寄語</h2><p>點擊翻開</p></div>
+</div>
+    </main>
     <script src="script.js"></script>
 </body>
 </html>
