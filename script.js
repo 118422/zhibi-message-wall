@@ -230,24 +230,29 @@ if (bgm && playBtn && volume) {
 
 
 
+
  // 手機版音符按鈕：展開／收起音樂播放器
 const musicToggleBtn = document.getElementById("music-toggle-btn");
 const musicPlayer = document.querySelector(".music-player");
 
 if (musicToggleBtn && musicPlayer) {
+    // 初始狀態：收起播放器
+    musicPlayer.classList.remove("mobile-player-open");
+    musicPlayer.style.display = "none";
+
     musicToggleBtn.addEventListener("click", () => {
         const isOpen = musicPlayer.classList.contains("mobile-player-open");
 
         if (isOpen) {
             musicPlayer.classList.remove("mobile-player-open");
             musicPlayer.style.display = "none";
-            musicToggleBtn.setAttribute("aria-expanded", "false");
             musicToggleBtn.textContent = "♫";
+            musicToggleBtn.setAttribute("aria-expanded", "false");
         } else {
             musicPlayer.classList.add("mobile-player-open");
             musicPlayer.style.display = "block";
-            musicToggleBtn.setAttribute("aria-expanded", "true");
             musicToggleBtn.textContent = "×";
+            musicToggleBtn.setAttribute("aria-expanded", "true");
         }
     });
 }
