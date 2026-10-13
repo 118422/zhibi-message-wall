@@ -1,0 +1,210 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>留言卡片生成器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f1e8;
+            color: #333;
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        h1, h2 { text-align: center; }
+
+        .panel {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+
+        button {
+            padding: 10px 16px;
+            margin: 5px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        button:hover { opacity: 0.85; }
+
+        .load { background: #315c82; color: white; }
+        .copy { background: #477b61; color: white; }
+        .clear { background: #b94a48; color: white; }
+
+        pre {
+            background: #1e2935;
+            color: #e8f0f5;
+            padding: 15px;
+            border-radius: 8px;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            overflow-x: auto;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        #status {
+            text-align: center;
+            margin: 15px 0;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>留言卡片生成器</h1>
+
+    <div class="panel">
+        <p>直接讀取 Google Form 的回應，並按留言類別生成卡片 HTML。</p>
+        <button class="load" onclick="loadSheet()">讀取 Google Sheets</button>
+        <button class="clear" onclick="clearAll()">清空結果</button>
+        <div id="status">尚未讀取資料</div>
+    </div>
+
+    <div class="panel">
+        <h2>給狐大</h2>
+        <button class="copy" onclick="copyCode('foxResult')">複製狐大 HTML</button>
+        <pre id="foxResult"></pre>
+    </div>
+
+    <div class="panel">
+        <h2>給牛大</h2>
+        <button class="copy" onclick="copyCode('cowResult')">複製牛大 HTML</button>
+        <pre id="cowResult"></pre>
+    </div>
+
+    <div class="panel">
+        <h2>給遊戲</h2>
+        <button class="copy" onclick="copyCode('gameResult')">複製遊戲 HTML</button>
+        <pre id="gameResult"></pre>
+    </div>
+
+    <script>
+        const SHEET_URL =
+            "https://script.google.com/macros/s/AKfycbz-VFXv7Avhj1ZQthB_6lEmg3xH2aAmDeI51mif-9pixdkYW0r6EE8tHlHxH_n69VDpKA/exec";
+
+        function escapeHTML(text) {
+            return String(text ?? "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        function makeCard(sender, message) {
+            return `<div class="card-item">
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front"></div>
+            <div class="card-back">
+                <div class="message-content">
+                    <p class="sender">
+                        <strong>投稿人：</strong>${escapeHTML(sender)}
+                    </p>
+                    <p class="message">
+                        <strong>內容：</strong>
+                        <span class="message-text">${escapeHTML(message)}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-caption">
+        <h2>江湖寄語</h2>
+        <p>點擊翻開</p>
+    </div>
+</div>`;
+        }
+
+        function loadSheet() {
+            const status = document.getElementById("status");
+            status.textContent = "正在讀取 Google Sheets……";
+
+            window.receiveSheetData = function(data) {
+                const foxCards = [];
+                const cowCards = [];
+                const gameCards = [];
+
+                data.forEach(row => {
+                    const nickname = row.nickname || "匿名";
+
+                    if (row.fox && row.fox.trim()) {
+                        foxCards.push(makeCard(nickname, row.fox));
+                    }
+
+                    if (row.cow && row.cow.trim()) {
+                        cowCards.push(makeCard(nickname, row.cow));
+                    }
+
+                    if (row.game && row.game.trim()) {
+                        gameCards.push(makeCard(nickname, row.game));
+                    }
+                });
+
+                document.getElementById("foxResult").textContent =
+                    foxCards.join("\n\n");
+                document.getElementById("cowResult").textContent =
+                    cowCards.join("\n\n");
+                document.getElementById("gameResult").textContent =
+                    gameCards.join("\n\n");
+
+                status.textContent =
+                    `讀取成功！共 ${data.length} 筆回應\n` +
+                    `狐大：${foxCards.length} 張　` +
+                    `牛大：${cowCards.length} 張　` +
+                    `遊戲：${gameCards.length} 張`;
+            };
+
+            const script = document.createElement("script");
+            script.src = SHEET_URL + "?callback=receiveSheetData&_=" + Date.now();
+
+            script.onerror = function() {
+                status.textContent =
+                    "讀取失敗，請檢查網路或 Apps Script 部署設定。";
+                script.remove();
+            };
+
+            document.body.appendChild(script);
+        }
+
+        async function copyCode(id) {
+            const code = document.getElementById(id).textContent;
+
+            if (!code.trim()) {
+                alert("目前沒有生成的 HTML。");
+                return;
+            }
+
+            try {
+                await navigator.clipboard.writeText(code);
+                alert("已複製 HTML！");
+            } catch (error) {
+                const temp = document.createElement("textarea");
+                temp.value = code;
+                document.body.appendChild(temp);
+                temp.select();
+                const copied = document.execCommand("copy");
+                temp.remove();
+
+                alert(copied ? "已複製 HTML！" : "複製失敗，請手動複製。");
+            }
+        }
+
+        function clearAll() {
+            document.getElementById("foxResult").textContent = "";
+            document.getElementById("cowResult").textContent = "";
+            document.getElementById("gameResult").textContent = "";
+            document.getElementById("status").textContent = "結果已清空";
+        }
+    </script>
+</body>
+</html>
