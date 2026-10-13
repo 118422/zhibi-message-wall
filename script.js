@@ -229,31 +229,33 @@ if (bgm && playBtn && volume) {
 });
 
 
-
-
- // 手機版音符按鈕：展開／收起音樂播放器
+// 手機版音符按鈕：只控制播放器顯示／收起，不更動其他功能
 const musicToggleBtn = document.getElementById("music-toggle-btn");
 const musicPlayer = document.querySelector(".music-player");
 
 if (musicToggleBtn && musicPlayer) {
-    // 初始狀態：收起播放器
+    // 初始時依照目前狀態同步按鈕
     musicPlayer.classList.remove("mobile-player-open");
-    musicPlayer.style.display = "none";
+    musicPlayer.style.display = "";
 
     musicToggleBtn.addEventListener("click", () => {
-        const isOpen = musicPlayer.classList.contains("mobile-player-open");
+        const isOpen = !musicPlayer.classList.contains("mobile-player-open");
 
         if (isOpen) {
-            musicPlayer.classList.remove("mobile-player-open");
-            musicPlayer.style.display = "none";
-            musicToggleBtn.textContent = "♫";
-            musicToggleBtn.setAttribute("aria-expanded", "false");
-        } else {
             musicPlayer.classList.add("mobile-player-open");
-            musicPlayer.style.display = "block";
-            musicToggleBtn.textContent = "×";
-            musicToggleBtn.setAttribute("aria-expanded", "true");
+            musicPlayer.style.setProperty("display", "block", "important");
+            musicPlayer.style.setProperty("position", "fixed");
+            musicPlayer.style.setProperty("top", "74px");
+            musicPlayer.style.setProperty("left", "12px");
+            musicPlayer.style.setProperty("z-index", "1101");
+            musicPlayer.style.setProperty("width", "min(260px, calc(100vw - 24px))");
+        } else {
+            musicPlayer.classList.remove("mobile-player-open");
+            musicPlayer.style.setProperty("display", "none", "important");
         }
+
+        musicToggleBtn.setAttribute("aria-expanded", String(isOpen));
+        musicToggleBtn.setAttribute("aria-label", isOpen ? "收起音樂播放器" : "開啟音樂播放器");
+        musicToggleBtn.textContent = isOpen ? "×" : "♫";
     });
 }
-
