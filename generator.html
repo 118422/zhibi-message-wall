@@ -1,210 +1,37 @@
-
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>留言卡片生成器</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f1e8;
-            color: #333;
-            max-width: 900px;
-            margin: auto;
-            padding: 20px;
-        }
-
-        h1, h2 { text-align: center; }
-
-        .panel {
-            background: white;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 10px;
-            border: 1px solid #ddd;
-        }
-
-        button {
-            padding: 10px 16px;
-            margin: 5px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 15px;
-        }
-
-        button:hover { opacity: 0.85; }
-
-        .load { background: #315c82; color: white; }
-        .copy { background: #477b61; color: white; }
-        .clear { background: #b94a48; color: white; }
-
-        pre {
-            background: #1e2935;
-            color: #e8f0f5;
-            padding: 15px;
-            border-radius: 8px;
-            white-space: pre-wrap;
-            overflow-wrap: anywhere;
-            overflow-x: auto;
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        #status {
-            text-align: center;
-            margin: 15px 0;
-            white-space: pre-wrap;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>留言卡片生成器</title>
+<style>
+body{font-family:Arial,sans-serif;background:#f5f1e8;color:#333;max-width:900px;margin:auto;padding:20px}h1,h2{text-align:center}.panel{background:white;padding:20px;margin:20px 0;border-radius:10px;border:1px solid #ddd}button{padding:10px 16px;margin:5px;border:0;border-radius:6px;cursor:pointer;font-size:15px}.load{background:#315c82;color:white}.download{background:#477b61;color:white}.clear{background:#b94a48;color:white}pre{background:#1e2935;color:#e8f0f5;padding:15px;border-radius:8px;white-space:pre-wrap;overflow-wrap:anywhere;max-height:300px;overflow:auto}#status{text-align:center;margin:15px 0;white-space:pre-wrap}.hint{line-height:1.7}
+</style>
 </head>
 <body>
-    <h1>留言卡片生成器</h1>
-
-    <div class="panel">
-        <p>直接讀取 Google Form 的回應，並按留言類別生成卡片 HTML。</p>
-        <button class="load" onclick="loadSheet()">讀取 Google Sheets</button>
-        <button class="clear" onclick="clearAll()">清空結果</button>
-        <div id="status">尚未讀取資料</div>
-    </div>
-
-    <div class="panel">
-        <h2>給狐大</h2>
-        <button class="copy" onclick="copyCode('foxResult')">複製狐大 HTML</button>
-        <pre id="foxResult"></pre>
-    </div>
-
-    <div class="panel">
-        <h2>給牛大</h2>
-        <button class="copy" onclick="copyCode('cowResult')">複製牛大 HTML</button>
-        <pre id="cowResult"></pre>
-    </div>
-
-    <div class="panel">
-        <h2>給遊戲</h2>
-        <button class="copy" onclick="copyCode('gameResult')">複製遊戲 HTML</button>
-        <pre id="gameResult"></pre>
-    </div>
-
-    <script>
-        const SHEET_URL =
-            "https://script.google.com/macros/s/AKfycbz-VFXv7Avhj1ZQthB_6lEmg3xH2aAmDeI51mif-9pixdkYW0r6EE8tHlHxH_n69VDpKA/exec";
-
-        function escapeHTML(text) {
-            return String(text ?? "")
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
-        }
-
-        function makeCard(sender, message) {
-            return `<div class="card-item">
-    <div class="card">
-        <div class="card-inner">
-            <div class="card-front"></div>
-            <div class="card-back">
-                <div class="message-content">
-                    <p class="sender">
-                        <strong>投稿人：</strong>${escapeHTML(sender)}
-                    </p>
-                    <p class="message">
-                        <strong>內容：</strong>
-                        <span class="message-text">${escapeHTML(message)}</span>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="card-caption">
-        <h2>江湖寄語</h2>
-        <p>點擊翻開</p>
-    </div>
-</div>`;
-        }
-
-        function loadSheet() {
-            const status = document.getElementById("status");
-            status.textContent = "正在讀取 Google Sheets……";
-
-            window.receiveSheetData = function(data) {
-                const foxCards = [];
-                const cowCards = [];
-                const gameCards = [];
-
-                data.forEach(row => {
-                    const nickname = row.nickname || "匿名";
-
-                    if (row.fox && row.fox.trim()) {
-                        foxCards.push(makeCard(nickname, row.fox));
-                    }
-
-                    if (row.cow && row.cow.trim()) {
-                        cowCards.push(makeCard(nickname, row.cow));
-                    }
-
-                    if (row.game && row.game.trim()) {
-                        gameCards.push(makeCard(nickname, row.game));
-                    }
-                });
-
-                document.getElementById("foxResult").textContent =
-                    foxCards.join("\n\n");
-                document.getElementById("cowResult").textContent =
-                    cowCards.join("\n\n");
-                document.getElementById("gameResult").textContent =
-                    gameCards.join("\n\n");
-
-                status.textContent =
-                    `讀取成功！共 ${data.length} 筆回應\n` +
-                    `狐大：${foxCards.length} 張　` +
-                    `牛大：${cowCards.length} 張　` +
-                    `遊戲：${gameCards.length} 張`;
-            };
-
-            const script = document.createElement("script");
-            script.src = SHEET_URL + "?callback=receiveSheetData&_=" + Date.now();
-
-            script.onerror = function() {
-                status.textContent =
-                    "讀取失敗，請檢查網路或 Apps Script 部署設定。";
-                script.remove();
-            };
-
-            document.body.appendChild(script);
-        }
-
-        async function copyCode(id) {
-            const code = document.getElementById(id).textContent;
-
-            if (!code.trim()) {
-                alert("目前沒有生成的 HTML。");
-                return;
-            }
-
-            try {
-                await navigator.clipboard.writeText(code);
-                alert("已複製 HTML！");
-            } catch (error) {
-                const temp = document.createElement("textarea");
-                temp.value = code;
-                document.body.appendChild(temp);
-                temp.select();
-                const copied = document.execCommand("copy");
-                temp.remove();
-
-                alert(copied ? "已複製 HTML！" : "複製失敗，請手動複製。");
-            }
-        }
-
-        function clearAll() {
-            document.getElementById("foxResult").textContent = "";
-            document.getElementById("cowResult").textContent = "";
-            document.getElementById("gameResult").textContent = "";
-            document.getElementById("status").textContent = "結果已清空";
-        }
-    </script>
+<h1>留言卡片生成器</h1>
+<div class="panel">
+<p class="hint">按下「讀取 Google Sheets」後，系統會整理狐大、牛大和遊戲的留言。再按「下載完整網頁」，即可下載可直接替換的 fox.html、cow.html 和 game.html，不需要手動複製或調整縮進。</p>
+<button class="load" onclick="loadSheet()">讀取 Google Sheets</button><button class="clear" onclick="clearAll()">清空結果</button>
+<div id="status">尚未讀取資料</div>
+</div>
+<div class="panel"><h2>生成完整網頁</h2><p class="hint">下載後，將三個 HTML 檔案放回網站資料夾並取代舊檔案。其他檔案（style.css、script.js、images、music）不用更改。</p>
+<button class="download" onclick="downloadPages()">下載完整網頁（3 個檔案）</button>
+</div>
+<div class="panel"><h2>狐大留言預覽</h2><pre id="foxResult"></pre></div>
+<div class="panel"><h2>牛大留言預覽</h2><pre id="cowResult"></pre></div>
+<div class="panel"><h2>遊戲留言預覽</h2><pre id="gameResult"></pre></div>
+<script>
+const SHEET_URL="https://script.google.com/macros/s/AKfycbz-VFXv7Avhj1ZQthB_6lEmg3xH2aAmDeI51mif-9pixdkYW0r6EE8tHlHxH_n69VDpKA/exec";
+let pagesData={fox:[],cow:[],game:[]};
+function escapeHTML(text){return String(text??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");}
+function formatDate(value){if(!value)return "";const d=new Date(value);if(Number.isNaN(d.getTime()))return String(value).slice(0,10);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;}
+function makeCard(sender,message,date){return `<div class="card-item">\n    <div class="card">\n        <div class="card-inner">\n            <div class="card-front"></div>\n            <div class="card-back">\n                <div class="message-content">\n                    <p class="sender"><strong>投稿人：</strong>${escapeHTML(sender)}</p>\n                    ${date?`<p class="post-date"><strong>投稿日期：</strong>${escapeHTML(date)}</p>`:""}\n                    <p class="message"><strong>內容：</strong><span class="message-text">${escapeHTML(message)}</span></p>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class="card-caption"><h2>江湖寄語</h2><p>點擊翻開</p></div>\n</div>`;}
+function loadSheet(){const status=document.getElementById("status");status.textContent="正在讀取 Google Sheets……";const script=document.createElement("script");window.receiveSheetData=function(data){pagesData={fox:[],cow:[],game:[]};data.forEach(row=>{const name=row.nickname||"匿名";const date=formatDate(row.timestamp||row.date);if(row.fox&&row.fox.trim())pagesData.fox.push(makeCard(name,row.fox,date));if(row.cow&&row.cow.trim())pagesData.cow.push(makeCard(name,row.cow,date));if(row.game&&row.game.trim())pagesData.game.push(makeCard(name,row.game,date));});for(const key of ["fox","cow","game"])document.getElementById(key+"Result").textContent=pagesData[key].join("\n\n");status.textContent=`讀取成功！共 ${data.length} 筆回應\n狐大：${pagesData.fox.length} 張　牛大：${pagesData.cow.length} 張　遊戲：${pagesData.game.length} 張`;script.remove();};script.src=SHEET_URL+"?callback=receiveSheetData";script.onerror=()=>{status.textContent="讀取失敗，請檢查網路或 Apps Script 部署設定。";script.remove();};document.body.appendChild(script);}
+function pageHTML(type,cards){const config={fox:{title:"給狐大的信｜江湖寄語",heading:"給狐大的信"},cow:{title:"給狐牛大的信｜江湖寄語",heading:"給牛大的信"},game:{title:"給執筆的信｜江湖寄語",heading:"給執筆的信"}}[type];return `<!DOCTYPE html>\n<html lang="zh-Hant">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>${config.title}</title>\n    <link rel="stylesheet" href="style.css">\n</head>\n<body>\n    <div class="music-player">\n        <div class="music-info"><span class="music-icon">♫</span><div><h3>江湖雅樂</h3><p id="music-name">執筆無悔</p></div></div>\n        <div class="music-controls"><button id="play-btn">▶</button></div>\n        <div class="progress-control"><span id="current-time">0:00</span><input id="music-progress" type="range" min="0" max="0" step="0.1" value="0" aria-label="音樂播放進度"><span id="duration">0:00</span></div>\n        <div class="volume-control"><span>音量</span><input id="volume" type="range" min="0" max="1" step="0.01" value="0.2"></div>\n        <audio id="bgm" loop><source src="music/music1.mp3" type="audio/mpeg"></audio>\n    </div>\n    <header><h1>${config.heading}</h1><p>千言萬語，皆是心意。</p><a href="index.html" class="back-btn">返回首頁</a></header>\n    <div class="card-tools"><input id="card-search" type="search" placeholder="搜尋暱稱或留言內容……" aria-label="搜尋留言"><button id="favorites-filter" type="button" aria-pressed="false">♡ 只看收藏</button></div>\n    <div class="random-container"><button id="random-btn">✦ 隨機抽取一張留言 ✦</button></div>\n    <main class="card-wall">\n${cards.join("\n\n")}\n    </main>\n    <script src="script.js"><\/script>\n</body>\n</html>`;}
+function downloadFile(filename,content){const blob=new Blob([content],{type:"text/html;charset=utf-8"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);}
+function downloadPages(){if(!["fox","cow","game"].some(k=>pagesData[k].length)){alert("請先讀取 Google Sheets。若目前沒有留言，也可以先確認是否成功讀取。");return;}for(const key of ["fox","cow","game"])downloadFile(key+".html",pageHTML(key,pagesData[key]));document.getElementById("status").textContent+="\n已開始下載 fox.html、cow.html、game.html。";}
+function clearAll(){pagesData={fox:[],cow:[],game:[]};for(const key of ["fox","cow","game"])document.getElementById(key+"Result").textContent="";document.getElementById("status").textContent="結果已清空";}
+</script>
 </body>
 </html>
