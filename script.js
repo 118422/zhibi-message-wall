@@ -227,3 +227,17 @@ if (bgm && playBtn && volume) {
         }
     });
 });
+
+
+// 手機版音符按鈕：展開／收起音樂播放器
+const musicToggleBtn = document.getElementById("music-toggle-btn");
+const musicPlayer = document.querySelector(".music-player");
+
+if (musicToggleBtn && musicPlayer) {
+    musicToggleBtn.addEventListener("click", () => {
+        const isOpen = musicPlayer.classList.toggle("mobile-player-open");
+        musicToggleBtn.setAttribute("aria-expanded", String(isOpen));
+        musicToggleBtn.setAttribute("aria-label", isOpen ? "收起音樂播放器" : "開啟音樂播放器");
+        musicToggleBtn.textContent = isOpen ? "×" : "♫";
+    });
+}

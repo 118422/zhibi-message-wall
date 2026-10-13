@@ -572,3 +572,43 @@ header p {
     .favorite-btn { width: 34px; height: 34px; font-size: 19px; }
 }
 
+
+
+/* 手機版音符按鈕：桌面維持原本播放器 */
+.music-toggle-btn {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    .music-toggle-btn {
+        display: flex;
+        position: fixed;
+        top: 16px;
+        left: 16px;
+        z-index: 1102;
+        width: 48px;
+        height: 48px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #d8b66a;
+        border-radius: 50%;
+        background: rgba(16, 29, 43, 0.96);
+        color: #f5dfb0;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+        font-size: 28px;
+        line-height: 1;
+        cursor: pointer;
+    }
+
+    .music-player {
+        display: none;
+        top: 74px;
+        left: 12px;
+        width: min(260px, calc(100vw - 24px));
+        z-index: 1101;
+    }
+
+    .music-player.mobile-player-open {
+        display: block;
+    }
+}
