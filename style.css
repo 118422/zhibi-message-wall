@@ -640,3 +640,12 @@ header p {
 .music-toggle-btn:active {
     transform: scale(0.95);
 }
+
+.music-player.mobile-player-open {
+    display: block !important;
+    position: fixed;
+    top: 75px;
+    right: 15px;
+    z-index: 99998;
+    max-width: calc(100vw - 30px);
+}
