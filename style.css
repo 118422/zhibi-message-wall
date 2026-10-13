@@ -612,3 +612,31 @@ header p {
         display: block;
     }
 }
+
+
+/* 手機版音樂按鈕 */
+.music-toggle-btn {
+    display: flex !important;
+    position: fixed !important;
+    top: 15px !important;
+    right: 15px !important;
+    z-index: 99999 !important;
+
+    width: 48px;
+    height: 48px;
+    align-items: center;
+    justify-content: center;
+
+    border: 2px solid #d8b66a;
+    border-radius: 50%;
+    background: #102131;
+    color: #f5d994;
+
+    font-size: 28px;
+    cursor: pointer;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.5);
+}
+
+.music-toggle-btn:active {
+    transform: scale(0.95);
+}
